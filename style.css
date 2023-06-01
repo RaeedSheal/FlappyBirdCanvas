@@ -1,0 +1,22 @@
+#game-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+#pipe-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 600px;
+}
+
+.pipe {
+    position: absolute;
+    width: 100px;
+    background-color: green;
+    transition: transform 2s linear;
+}
