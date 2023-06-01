@@ -22,7 +22,7 @@ function component(width, height, color, x, y) {
     this.height = height;
     this.x = x;
     this.y = y;
-    this.gravity = 0.00005;
+    this.gravitySpeed = 0;
     this.update = function () {
         ctx = GameArea.context;
         ctx.fillStyle = color;
