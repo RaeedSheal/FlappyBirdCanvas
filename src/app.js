@@ -1,6 +1,7 @@
 function startGame() {
     GameArea.start();
     Bird = new component(20, 20, "green", 330, 30);
+    pipe = new draw();
 }
 
 let GameArea = {
@@ -19,6 +20,9 @@ let GameArea = {
     },
     clear: function () {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    },
+    stop: function () {
+        clearInterval(this.interval);
     },
 };
 
@@ -43,8 +47,47 @@ function updateGameArea() {
     GameArea.clear();
     Bird.newPos();
     Bird.update();
+    pipe.newPos();
+    pipe.update();
 }
 
 function Jump() {
     Bird.y -= 15;
+}
+
+function draw() {
+    const pipeWidth = 50;
+    const pipeGap = 100;
+    const pipeHeight = 800;
+    const gapSize = 80;
+    const gapVariance = 30;
+    let pipeX = 480;
+    let gapPosition = (pipeHeight - gapSize) / 2;
+
+    this.update = function () {
+        ctx.clearRect(0, 0, 480, 800);
+        ctx = GameArea.context;
+        ctx.fillStyle = "green";
+        ctx.fillRect(
+            pipeX,
+            gapPosition + gapSize,
+            pipeWidth,
+            pipeHeight - (gapPosition + gapSize)
+        );
+
+        if (pipeX + pipeWidth < 0) {
+            pipeX = canvas.width;
+
+            //  new gap position for the next pipe
+            gapPosition =
+                Math.random() * (pipeHeight - gapSize - 2 * gapVariance) +
+                gapVariance;
+            equestAnimationFrame(draw);
+        }
+    };
+    this.newPos = function () {
+        pipeX -= 3;
+    };
+
+    // loop
 }
